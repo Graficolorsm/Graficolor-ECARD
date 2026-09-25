@@ -1,8 +1,5 @@
 @import "tailwindcss" source(none);
 @source "../src";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
 
 /*
  * Design system definition.
@@ -264,3 +261,122 @@
 .reveal{animation:reveal .65s cubic-bezier(.22,.8,.32,1) both}.delay-1{animation-delay:.1s}.delay-2{animation-delay:.18s}.delay-3{animation-delay:.26s}@keyframes reveal{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media (min-width: 47rem){.ecard-page{padding:3rem 1.5rem}.ecard-shell{min-height:0;border:1px solid var(--color-border);border-radius:.65rem}.ecard-hero{min-height:34rem;padding:2rem}.ecard-content{padding:2rem}.actions-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.action-tile{grid-template-columns:1fr;justify-items:center;min-height:6.4rem;text-align:center}.portfolio-band{margin-right:-2rem;margin-left:-2rem;padding:3rem 2rem}.ecard-shell footer{padding:2.5rem 2rem}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+
+/* QR & Share Modal */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: grid;
+  place-items: center;
+  padding: 1.25rem;
+  background-color: oklch(0 0 0 / 65%);
+  backdrop-filter: blur(8px);
+  animation: reveal 0.25s cubic-bezier(0.22, 0.8, 0.32, 1) both;
+}
+
+.modal-card {
+  position: relative;
+  width: 100%;
+  max-width: 22rem;
+  padding: 1.75rem 1.5rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-2xl);
+  background: var(--color-card);
+  color: var(--color-card-foreground);
+  box-shadow: 0 25px 60px oklch(0 0 0 / 50%);
+  text-align: center;
+  animation: modal-pop 0.3s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: grid;
+  width: 2rem;
+  height: 2rem;
+  place-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  background: var(--color-surface-soft);
+  color: var(--color-muted-foreground);
+  cursor: pointer;
+  transition: background-color 150ms ease, color 150ms ease;
+}
+
+.modal-close:hover {
+  background: var(--color-magenta);
+  color: var(--color-primary-foreground);
+}
+
+.qr-box {
+  display: inline-flex;
+  padding: 1rem;
+  margin: 1.25rem auto;
+  border-radius: var(--radius-lg);
+  background: #ffffff;
+  box-shadow: 0 8px 24px oklch(0 0 0 / 15%);
+}
+
+.modal-title {
+  font: 700 1.25rem/1.2 var(--font-display);
+  margin: 0 0 0.4rem;
+}
+
+.modal-subtitle {
+  font-size: 0.82rem;
+  color: var(--color-muted-foreground);
+  margin: 0;
+}
+
+.copy-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  margin-top: 1.25rem;
+  padding: 0.35rem 0.35rem 0.35rem 0.85rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-soft);
+}
+
+.copy-input {
+  background: transparent;
+  border: none;
+  color: var(--color-foreground);
+  font: 500 0.78rem/1.5 var(--font-sans);
+  outline: none;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.45rem 0.75rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-magenta);
+  color: var(--color-primary-foreground);
+  font: 700 0.72rem/1 var(--font-display);
+  cursor: pointer;
+  transition: transform 120ms ease, opacity 120ms ease;
+}
+
+.copy-btn:hover {
+  opacity: 0.9;
+  transform: scale(1.02);
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.92) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
